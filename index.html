@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webapp with Categories</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    /* Fullscreen iframe */
+    #content {
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Floating toggle button */
+    .toggle-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ff4444;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      transition: background 0.3s;
+      z-index: 1001;
+    }
+
+    .toggle-btn:hover {
+      background: #cc0000;
+    }
+
+    /* Popup menu */
+    .popup {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background: #222;
+      border-radius: 12px;
+      padding: 15px;
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 320px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+      z-index: 1000;
+    }
+
+    /* Section titles */
+    .category-title {
+      color: #ffcc00;
+      font-weight: bold;
+      margin-bottom: 5px;
+      font-size: 14px;
+      border-bottom: 1px solid #555;
+      padding-bottom: 3px;
+    }
+
+    /* Button grid */
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .button-group button {
+      background: #444;
+      border: none;
+      color: white;
+      font-size: 13px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      flex: 1 1 30%;
+      transition: background 0.3s;
+    }
+
+    .button-group button:hover {
+      background: #ff4444;
+    }
+
+    .button-group button.active {
+      background: #ff4444;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fullscreen iframe -->
+  <iframe id="content" src="page1.html"></iframe>
+
+  <!-- Floating popup menu -->
+  <div class="popup" id="popup">
+
+    <!-- Morning -->
+    <div>
+      <div class="category-title">🌅 Morning</div>
+      <div class="button-group">
+        <button onclick="loadPage('page1.html', this)" class="active">Page 1</button>
+        <button onclick="loadPage('page2.html', this)">Page 2</button>
+        <button onclick="loadPage('page3.html', this)">Page 3</button>
+        <button onclick="loadPage('page4.html', this)">Page 4</button>
+        <button onclick="loadPage('page5.html', this)">Page 5</button>
+      </div>
+    </div>
+
+    <!-- Day -->
+    <div>
+      <div class="category-title">☀️ Day</div>
+      <div class="button-group">
+        <button onclick="loadPage('page6.html', this)">Page 6</button>
+        <button onclick="loadPage('page7.html', this)">Page 7</button>
+        <button onclick="loadPage('page8.html', this)">Page 8</button>
+        <button onclick="loadPage('page9.html', this)">Page 9</button>
+        <button onclick="loadPage('page10.html', this)">Page 10</button>
+      </div>
+    </div>
+
+    <!-- Night -->
+    <div>
+      <div class="category-title">🌙 Night</div>
+      <div class="button-group">
+        <button onclick="loadPage('page11.html', this)">Page 11</button>
+        <button onclick="loadPage('page12.html', this)">Page 12</button>
+        <button onclick="loadPage('page13.html', this)">Page 13</button>
+        <button onclick="loadPage('page14.html', this)">Page 14</button>
+        <button onclick="loadPage('page15.html', this)">Page 15</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Floating toggle button -->
+  <button class="toggle-btn" onclick="togglePopup()">☰</button>
+
+  <script>
+    function loadPage(page, btn) {
+      document.getElementById("content").src = page;
+
+      // Active button highlight
+      let buttons = document.querySelectorAll(".popup button");
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      // Auto-close popup after selecting
+      togglePopup(false);
+    }
+
+    function togglePopup(force) {
+      const popup = document.getElementById("popup");
+      if (force === false) {
+        popup.style.display = "none";
+        return;
+      }
+      popup.style.display = popup.style.display === "flex" ? "none" : "flex";
+    }
+  </script>
+
+</body>
+</html>
